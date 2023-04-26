@@ -1,10 +1,14 @@
-function App() {
+import React from 'react';
+import './assets/css/style.css';
+import MainRouter from './components/routers/router/MainRouter';
 
-  return (
-    <>
-      <h1>Joolba Media</h1>
-    </>
-  )
+
+const App = () => {
+	return (
+		<>
+			<MainRouter />
+		</>
+	)
 }
 
 export default App

@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    background: transparent;
+    font-weight: normal;
+    text-decoration: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: "gordita_regular";
+    color: #0a0a0a;
+}
+.anim-fade {
+    animation: fade 330ms ease-in-out 0ms;
+}
+@keyframes fadeIn {
+    0% { opacity: 0;
+        transform: scale(.9); 
+    }
+    100% { opacity: 1; 
+    transform: scale(1);}
+  }
+ol,
+ul {
+    list-style: none;
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.6em;
+    color: #7e7e7e;
+}
+
+span,
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #666666;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+span {
+    font-size: 20px;
+}
+
+.wrapper {
+    width: 85%;
+    margin: 0 auto;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+#main  {
+    padding-top: 76px;
+    margin-left: 293px;
+    position: unset !important;
+}
+#account-action .sb-avatar__text div span {
+    color: #fff !important;
+}
+.button {
+    display: inline-block;
+    padding: 20px 55px;
+    cursor: pointer;
+    border-radius: 12px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 10px 14px 48px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(98.46deg, #32bcad -24.84%, #289a8e 144.56%);
+    font-family: "gordita_regular";
+}
+html.modal-enabled {
+    overflow: hidden !important;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* fonts */
+
+@font-face {
+    font-display: auto;
+    font-family: "gordita_regular";
+    src: url("../../assets/fonts/gordita-regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-display: auto;
+    font-family: "gordita_medium";
+    src: url("../../assets/fonts/gordita-medium.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "gordita_bold";
+    src: url("../../assets/fonts/gordita-bold.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+input{
+    font-family: gordita_regular;
+}
