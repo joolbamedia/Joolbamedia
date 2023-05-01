@@ -14,7 +14,7 @@ const SignUp = ({ }) => {
     return (
         <>
             <Header>
-                <div className="logo">
+                <div className="logo"> 
                     <img src={joolbaLogo} alt="joolba logo" />
                 </div>
             </Header>
