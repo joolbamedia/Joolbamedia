@@ -1,8 +1,8 @@
-#nstallation
+# Installation
 
-yarn / npm i 
+**yarn / npm i** 
 
 
-#run dev server
+# Run dev server
 
-yarn run dev / npm run dev
+**yarn run dev / npm run dev**
