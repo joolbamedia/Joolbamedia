@@ -10,7 +10,7 @@ const MainRouter = () => {
         <>
             <Routes>
                 <Route path="/*" element={<AppRouter />} />
-                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/sign-in" element={<SignUp type="SignIn" />} />
                 <Route path="/sign-up" element={<SignUp />} />
             </Routes>
             <Footer />
