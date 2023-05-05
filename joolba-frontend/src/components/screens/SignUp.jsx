@@ -1,20 +1,59 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 
 import heroImg from '../../assets/images/signup-hero.png'
 import joolbaLogo from '../../assets/images/joolba-logo.png'
 import joolbaJIcon from '../../assets/images/joolba-j.png'
 import googleLogo from '../../assets/images/google-logo.svg'
+import eyeIcon from '../../assets/icons/eye.svg'
+import hideIcon from '../../assets/icons/hide-eye.svg'
 import { BLUE, PRIMARY_COLOR } from '../constants'
 import SilentLink from '../constants/SilentLink'
+import { useNavigate } from 'react-router-dom'
 
 
-const SignUp = ({ }) => {
+const SignUp = ({ type = "SignUp" }) => {
+    const [isShow, setShow] = useState(false)
+    const [inputs, setInputs] = useState({
+        name: "",
+        email: "",
+        password: "",
+    })
+
+    const navigate = useNavigate()
+
+    const onChange = (e) => {
+        setInputs({ ...inputs, [e.target.name]: e.target.value })
+    }
+
+    // Sign-up Handler
+    const SignUpHandler = () => {
+        console.log(inputs);
+        console.log("Signup method triggered");
+    }
+
+    // Login handler
+    const LoginHandler = () => {
+        console.log("Login method triggered");
+    }
+
+    // Google authentication handler
+    const googleAuthHandler = () => {
+        console.log("Google authentication method triggered");
+    }
+
+    const togglePasswordType = () => {
+        setShow(!isShow)
+    }
+
+    const title = useMemo(() => {
+        return type === "SignUp" ? "Sign Up" : "Sign In"
+    }, [])
 
     return (
         <>
             <Header>
-                <div className="logo"> 
+                <div className="logo">
                     <img src={joolbaLogo} alt="joolba logo" />
                 </div>
             </Header>
@@ -28,41 +67,78 @@ const SignUp = ({ }) => {
                     <SignupContainer>
                         <Top>
                             <img src={joolbaJIcon} alt="" />
-                            <h2>Sign Up</h2>
+                            <h2>{title}</h2>
                         </Top>
                         <Form>
-                            <InputContainer>
-                                <label htmlFor="name">Name</label>
-                                <input type="text" id="name" placeholder="Name" name="name" />
-                            </InputContainer>
+                            {type === "SignUp" && (
+                                <InputContainer>
+                                    <label htmlFor="name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        placeholder="Name"
+                                        name="name"
+                                        onChange={onChange}
+                                        value={inputs.name}
+                                    />
+                                </InputContainer>
+                            )}
                             <InputContainer>
                                 <label htmlFor="email">Email</label>
-                                <input type="email" id="email" placeholder="Email" name="email" />
+                                <input
+                                    type="email"
+                                    id="email"
+                                    placeholder="Email"
+                                    name="email"
+                                    onChange={onChange}
+                                    value={inputs.email}
+                                />
                             </InputContainer>
                             <InputContainer className="last">
                                 <label htmlFor="password">Password</label>
-                                <input type="password" id="password" placeholder="Password" name="password" />
+                                <div className="input-container">
+                                    <input
+                                        type={!isShow ? "password" : "text"}
+                                        id="password"
+                                        placeholder="Password"
+                                        name="password"
+                                        onChange={onChange}
+                                        value={inputs.password}
+                                    />
+                                    <img
+                                        src={!isShow ? eyeIcon : hideIcon}
+                                        onClick={togglePasswordType}
+                                        alt=""
+                                    />
+                                </div>
                             </InputContainer>
-                            <SubmitButton tabIndex='1'>Continue</SubmitButton>
-                            <span className="or">
-                                Or
-                            </span>
-                            <SubmitButton className="google">
+                            <SubmitButton onClick={type === "SignUp" ? SignUpHandler : LoginHandler}>
+                                Continue
+                            </SubmitButton>
+                            <div className="or">
+                                <span className="or">
+                                    Or
+                                </span>
+                            </div>
+                            <SubmitButton className="google" onClick={googleAuthHandler}>
                                 <img src={googleLogo} alt="" />
                                 <span>Continue with Google</span>
                             </SubmitButton>
-                            <p className="login">
-                                Already have an account?
-                                <SilentLink to='/sign-in'>Sign In</SilentLink>
-                            </p>
-                            {/* 
-                                for login page
-                            <span className="or new">
-                                New to Joolba?
-                            </span>
-                            <SubmitButton className='create' onClick={e => navigate('/sign-in')} >
-                                <span>Create your Joolba Account!</span>
-                            </SubmitButton> */}
+                            {type === "SignUp" ? (
+                                <p className="login">
+                                    Already have an account?
+                                    <SilentLink to='/sign-in'>Sign In</SilentLink>
+                                </p>
+                            ) : (
+                                <>
+                                    <span className="or new">
+                                        New to Joolba?
+                                    </span>
+                                    <SubmitButton className='create' onClick={e => navigate('/sign-up')} >
+                                        <span>Create your Joolba Account!</span>
+                                    </SubmitButton>
+                                </>
+                            )}
                         </Form>
                     </SignupContainer>
                 </Right>
@@ -222,11 +298,29 @@ const InputContainer = styled.div`
         padding: 5px 10px;
         width: 98.5%;
         margin: 0 auto;
-        border-radius: 5px;
+        border-radius: 8px;
         display: block;
         font-size: 17px;
         border: 1px solid #008a0e;
         background-color: #fff;
+    }
+
+    .input-container{
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        input{
+            flex: 1;
+            border: none;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        img{
+            width: 20px;
+            cursor: pointer;
+        }
     }
 
     @media screen and (max-width: 580px) {
@@ -252,7 +346,7 @@ const SubmitButton = styled.span`
         color: #fff;
         font-size: 17px;
         font-weight: 600;
-        border-radius: 7px;
+        border-radius: 24px;
         cursor: pointer;
     }
     &.google{
