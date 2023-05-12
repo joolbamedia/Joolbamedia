@@ -24,7 +24,8 @@ export default Footer
 
 const Wrapper = styled.footer`
     padding: 58px 32px;
-    margin-top: 42px;
+    /* margin-top: 42px; */
+    margin: 0;
     background-color: ${SECONDARY_COLOR};
 `
 
