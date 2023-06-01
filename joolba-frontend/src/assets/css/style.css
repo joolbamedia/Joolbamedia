@@ -123,3 +123,28 @@ html.modal-enabled {
 input{
     font-family: gordita_regular;
 }
+
+/* ---------------------- */
+
+.dialog-enter {
+    opacity: 0;
+    transform: translate(-50%, -200%);
+  }
+  
+  .dialog-enter-active {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  
+  .dialog-exit {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  
+  .dialog-exit-active {
+    opacity: 0;
+    transform: translate(-50%, -200%);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  
