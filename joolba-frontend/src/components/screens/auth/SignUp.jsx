@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
@@ -30,22 +30,32 @@ const SignUp = ({ type = "SIGNUP" }) => {
 		confirmPassword: false,
 	})
 	const [errorMessage, setErrorMessage] = useState("")
+	const [isError, setError] = useState("") // "active" or "close"
+
 	// -----functions----
-	//
+	// function for capture inputs 
 	const onChange = (e) => {
+		setError("active")
+		setErrorMessage("Invalid username or password")
 		setInputs({ ...inputs, [e.target.name]: e.target.value })
 	}
-
-	const title = type === "SIGNUP" ? "Create an account" : "Hi, Welcome Back! 👋"
-	const buttonTitle = type === "SIGNUP" ? "Sign Up" : "Sign In"
-
-	const togglePasswordType = (password_type) => setShow({ ...isShow, [password_type]: !isShow[password_type] })
-
+	// function for toggle password type
+	const togglePasswordType = useMemo(() => (
+		(password_type) => setShow({ ...isShow, [password_type]: !isShow[password_type] })
+	), [])
+	// function for toggle remember me tick mark
 	const toggleRememberTick = () => setTick(!rememberTick)
-
-	const closeErrorMessage = () => setErrorMessage("")
-
-	console.log('rerendering....');
+	// function for closing error message dialogue box
+	const closeErrorMessage = useMemo(() => (
+		() => {
+			setErrorMessage("")
+			setError("close")
+		}
+	), [])
+	// title based on screen(SIGNUP | SIGNIN)
+	const title = type === "SIGNUP" ? "Create an account" : "Hi, Welcome Back! 👋"
+	// google authentication title based on screen(SIGNUP | SIGNIN)
+	const buttonTitle = type === "SIGNUP" ? "Sign Up" : "Sign In"
 
 	return (
 		<Wrapper theme={theme}>
@@ -59,15 +69,19 @@ const SignUp = ({ type = "SIGNUP" }) => {
 			</Left>
 			<Right theme={theme}>
 				<ToggleWrapper>
+					<div className="logo-wrapper">
+						<img src={joolbaLogo} alt="" />
+					</div>
 					<ThemeToggle />
 				</ToggleWrapper>
+				<div>
 				<Top theme={theme}>
 					<h1>{title}</h1>
 					<span>Where Opinions Shape News</span>
 				</Top>
 				<Form>
 					<ErrorMessageContainer
-						className={errorMessage.trim().length > 0 ? "active" : "close"}
+						className={isError}
 					>
 						<span>{errorMessage}</span>
 						<img
@@ -165,6 +179,7 @@ const SignUp = ({ type = "SIGNUP" }) => {
 						}
 					</LoginActionContainer>
 				</Actions>
+				</div>
 			</Right>
 		</Wrapper>
 	)
@@ -205,6 +220,9 @@ const Left = styled.div`
 			margin: 0 auto;
 		}
 	}
+	@media screen and (max-width:1180px) {
+		display: none;
+	}
 `
 
 const ToggleWrapper = styled.div`
@@ -212,6 +230,23 @@ const ToggleWrapper = styled.div`
 	align-items: center;
 	justify-content: flex-end;
 	padding: 6px;
+
+	.logo-wrapper{
+		display: none;
+	}
+
+	@media screen and (max-width:1180px) {
+		.logo-wrapper{
+			display: flex;
+			flex: 1;
+			align-items: center;
+			justify-content: center;
+
+			img{
+				width: 150px;
+			}
+		}
+	}
 `
 
 const Right = styled.div`
@@ -219,6 +254,11 @@ const Right = styled.div`
 	min-height: 100vh;
 	/* padding: 22px 0; */
 	background-color: ${({ theme }) => theme === "DARK" ? "#2f3e2f" : "#00b90214"};
+	
+	@media screen and (max-width:1180px) {
+		width: 100%;
+		background-color: ${({ theme }) => theme === "DARK" ? "#1a1a1a" : "#00b90214"};
+	}
 `
 
 const Top = styled.div`
@@ -234,12 +274,37 @@ const Top = styled.div`
 		font-size: 16px;
 		color:${({ theme }) => theme === "DARK" ? "#ffffffe5" : "#000000e5"};
 	}
+
+	@media screen and (max-width:1180px) {
+		padding: 32px 0;
+	}
+	@media screen and (max-width:680px) {
+		h1{
+			font-size: 27px;
+		}
+		span{
+			font-size: 15px;
+		}
+	}
 `
 
 const Form = styled.div`
 	width: 55%;
 	transition: all 0.3s ease-in-out;
 	margin: 0 auto;
+
+	@media screen and (max-width:1580px) {
+		width: 65%;
+	}
+	@media screen and (max-width:1180px) {
+		width: 45%;
+	}
+	@media screen and (max-width:890px) {
+		width: 60%;
+	}
+	@media screen and (max-width:580px) {
+		width: 80%;
+	}
 `
 
 const Actions = styled.div`
@@ -276,6 +341,18 @@ const Actions = styled.div`
 			}
 		}
 	}
+	@media screen and (max-width:1580px) {
+		width: 65%;
+	}
+	@media screen and (max-width:1180px) {
+		width: 45%;
+	}
+	@media screen and (max-width:890px) {
+		width: 60%;
+	}
+	@media screen and (max-width:580px) {
+		width: 80%;
+	}
 `
 const InputContainer = styled.div`
 	padding: 14px 20px;
@@ -296,6 +373,17 @@ const InputContainer = styled.div`
 	img{
 		width: 26px;
 		cursor: pointer;
+	}
+
+	@media screen and (max-width:1280px) {
+		padding: 8px 16px;
+	}
+	@media screen and (max-width:580px) {
+		padding: 6px 14px;
+
+		input{
+			font-size: 15px;
+		}
 	}
 `
 
@@ -328,6 +416,17 @@ const SubmitButton = styled.button`
 			color: #111;
 			font-family: gordita_regular;
 			font-weight: 600;
+		}
+	}
+
+	@media screen and (max-width:1280px) {
+		padding: 10px;
+	}
+	@media screen and (max-width:580px) {
+		padding: 8px;
+
+		span{
+			font-size: 15px;
 		}
 	}
 `
@@ -389,6 +488,12 @@ const ErrorMessageContainer = styled.div`
 		animation: ${fadeOut} 0.3s ease-in-out;
 		animation-fill-mode: forwards;
 		/* display: none; */
+	}
+	@media screen and (max-width:580px) {
+		gap: 10px;
+		span{
+			font-size: 14px;
+		}
 	}
 `
 const LoginActionContainer = styled.div`
