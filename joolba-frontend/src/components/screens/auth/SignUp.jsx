@@ -42,7 +42,7 @@ const SignUp = ({ type = "SIGNUP" }) => {
 	// function for toggle password type
 	const togglePasswordType = useMemo(() => (
 		(password_type) => setShow({ ...isShow, [password_type]: !isShow[password_type] })
-	), [])
+	), [isShow])
 	// function for toggle remember me tick mark
 	const toggleRememberTick = () => setTick(!rememberTick)
 	// function for closing error message dialogue box
