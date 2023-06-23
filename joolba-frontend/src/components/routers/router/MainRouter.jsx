@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
 
 import AppRouter from "./AppRouter";
-import SignUp from "../../screens/SignUp";
+import SignUp from "../../screens/auth/SignUp";
 import Footer from "../../includes/Footer";
 
 
@@ -12,7 +12,7 @@ const MainRouter = () => {
             <Container>
                 <Routes>
                     <Route path="/*" element={<AppRouter />} />
-                    <Route path="/sign-in" element={<SignUp type="SignIn" />} />
+                    <Route path="/sign-in" element={<SignUp type="SIGNIN" />} />
                     <Route path="/sign-up" element={<SignUp />} />
                 </Routes>
             </Container>
